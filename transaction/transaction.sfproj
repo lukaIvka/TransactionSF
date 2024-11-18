@@ -36,10 +36,13 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\bank\bank.csproj" />
-    <ProjectReference Include="..\booksotre\booksotre.csproj" />
+    <ProjectReference Include="..\bank\Bank.csproj" />
+    <ProjectReference Include="..\booksotre\Booksotre.csproj" />
+    <ProjectReference Include="..\Client\Client.csproj">
+      <ServiceLaunchUrl>http://localhost:{ServicePort}/</ServiceLaunchUrl>
+    </ProjectReference>
     <ProjectReference Include="..\TransactionCoordinator\TransactionCoordinator.csproj" />
-    <ProjectReference Include="..\validation\validation.csproj" />
+    <ProjectReference Include="..\validation\Validation.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
   <PropertyGroup>

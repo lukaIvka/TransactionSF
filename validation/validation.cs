@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.Fabric;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+using Common.Interfaces;
+
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 
@@ -12,11 +9,47 @@ namespace validation
     /// <summary>
     /// An instance of this class is created for each service instance by the Service Fabric runtime.
     /// </summary>
-    internal sealed class validation : StatelessService
+    internal sealed class Validation : StatelessService, IValidate
     {
-        public validation(StatelessServiceContext context)
+        public Validation(StatelessServiceContext context)
             : base(context)
         { }
+
+        public void Commit()
+        {
+            Console.WriteLine("Transaction committed.");
+        }
+
+        public bool Prepare()
+        {
+            Console.WriteLine("Preparing transaction.");
+            return true;
+        }
+
+        public void Rollback()
+        {
+            Console.WriteLine("Transaction rolled back.");
+        }
+
+        public async Task<string> Validate(string book, uint quantity)
+        {
+            string retval = "success";
+            try
+            {
+                if (string.IsNullOrEmpty(book) || quantity <= 0)
+                {
+                    retval = "Some of the fields aren't filled correctly.";
+                    return await Task.FromResult(retval);
+                }
+
+                return await Task.FromResult(retval);
+            }
+            catch (Exception e)
+            {
+                retval = e.Message;
+                return await Task.FromResult(retval);
+            }
+        }
 
         /// <summary>
         /// Optional override to create listeners (e.g., TCP, HTTP) for this service replica to handle client or user requests.

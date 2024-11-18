@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.Fabric;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Data.Collections;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
@@ -13,11 +8,29 @@ namespace TransactionCoordinator
     /// <summary>
     /// An instance of this class is created for each service replica by the Service Fabric runtime.
     /// </summary>
-    internal sealed class TransactionCoordinator : StatefulService
+    internal sealed class TransactionCoordinator : StatefulService, Common.Interfaces.ITransaction
     {
         public TransactionCoordinator(StatefulServiceContext context)
             : base(context)
         { }
+
+        public void Commit()
+        {
+            Console.WriteLine("Transaction committed.");
+        }
+
+        public bool Prepare()
+        {
+            Console.WriteLine("Preparing transaction.");
+            return true;
+        }
+
+        public void Rollback()
+        {
+            Console.WriteLine("Transaction rolled back.");
+        }
+
+
 
         /// <summary>
         /// Optional override to create listeners (e.g., HTTP, Service Remoting, WCF, etc.) for this service replica to handle client or user requests.

@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.Fabric;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+using Common.Interfaces;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 
@@ -12,11 +8,70 @@ namespace booksotre
     /// <summary>
     /// An instance of this class is created for each service instance by the Service Fabric runtime.
     /// </summary>
-    internal sealed class booksotre : StatelessService
+    internal sealed class Booksotre : StatelessService, IBookstore
     {
-        public booksotre(StatelessServiceContext context)
+        public Booksotre(StatelessServiceContext context)
             : base(context)
         { }
+
+        private readonly Dictionary<string, (double Price, uint Stock)> _inventory = new Dictionary<string, (double, uint)>
+    {
+        { "20000 milja pod morem", (10.99, 50) },
+        { "Na Drini Cuprija", (12.99, 30) },
+        { "Kad su cvetale tikve", (8.99, 20) }
+    };
+
+        public void ListAvailableItems()
+        {
+            Console.WriteLine("Available books in the bookstore:");
+            foreach (var item in _inventory)
+            {
+                Console.WriteLine($"Book: {item.Key}, Price: {item.Value.Price:C}, Stock: {item.Value.Stock}");
+            }
+        }
+
+        public void EnlistPurchase(string bookID, uint count)
+        {
+            if (!_inventory.ContainsKey(bookID))
+            {
+                throw new Exception($"Book '{bookID}' does not exist.");
+            }
+
+            if (_inventory[bookID].Stock < count)
+            {
+                throw new Exception($"Insufficient stock for book '{bookID}'. Available: {_inventory[bookID].Stock}");
+            }
+
+            var updatedStock = _inventory[bookID].Stock - count;
+            _inventory[bookID] = (_inventory[bookID].Price, updatedStock);
+            Console.WriteLine($"Successfully purchased {count} copies of '{bookID}'. Remaining stock: {updatedStock}");
+        }
+
+        public double GetItemPrice(string bookID)
+        {
+            if (!_inventory.ContainsKey(bookID))
+            {
+                throw new Exception($"Book '{bookID}' does not exist.");
+            }
+
+            return _inventory[bookID].Price;
+        }
+
+        public bool Prepare()
+        {
+            Console.WriteLine("Preparing transaction in BookstoreService...");
+            return true; // Simulacija pripreme transakcije
+        }
+
+        public void Commit()
+        {
+            Console.WriteLine("Transaction committed in BookstoreService.");
+        }
+
+        public void Rollback()
+        {
+            Console.WriteLine("Transaction rolled back in BookstoreService.");
+        }
 
         /// <summary>
         /// Optional override to create listeners (e.g., TCP, HTTP) for this service replica to handle client or user requests.

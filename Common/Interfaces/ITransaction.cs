@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.ServiceFabric.Services.Remoting;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Common.Interfaces
 {
     [ServiceContract]
-    public interface ITransaction
+    public interface ITransaction: IService
     {
         [OperationContract]
         bool Prepare();

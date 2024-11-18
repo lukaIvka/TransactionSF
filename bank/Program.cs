@@ -22,9 +22,9 @@ namespace bank
                 // an instance of the class is created in this host process.
 
                 ServiceRuntime.RegisterServiceAsync("bankType",
-                    context => new bank(context)).GetAwaiter().GetResult();
+                    context => new Bank(context)).GetAwaiter().GetResult();
 
-                ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(bank).Name);
+                ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(Bank).Name);
 
                 // Prevents this host process from terminating so services keep running.
                 Thread.Sleep(Timeout.Infinite);

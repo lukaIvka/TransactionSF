@@ -22,9 +22,9 @@ namespace booksotre
                 // an instance of the class is created in this host process.
 
                 ServiceRuntime.RegisterServiceAsync("booksotreType",
-                    context => new booksotre(context)).GetAwaiter().GetResult();
+                    context => new Booksotre(context)).GetAwaiter().GetResult();
 
-                ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(booksotre).Name);
+                ServiceEventSource.Current.ServiceTypeRegistered(Process.GetCurrentProcess().Id, typeof(Booksotre).Name);
 
                 // Prevents this host process from terminating so services keep running.
                 Thread.Sleep(Timeout.Infinite);

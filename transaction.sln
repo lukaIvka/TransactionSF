@@ -5,17 +5,17 @@ VisualStudioVersion = 17.12.35506.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "transaction", "transaction\transaction.sfproj", "{9C7D558B-D65C-4257-B095-A58B8100CCAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bank", "bank\bank.csproj", "{FC39FB2E-30F5-4F91-9F29-40706CDE5F65}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bank", "bank\Bank.csproj", "{FC39FB2E-30F5-4F91-9F29-40706CDE5F65}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionCoordinator", "TransactionCoordinator\TransactionCoordinator.csproj", "{5153635C-CB34-42FB-9088-B64E22B6A92C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{99935DD9-4D62-471F-9A15-AB9450FFB006}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "booksotre", "booksotre\booksotre.csproj", "{1E178C22-F684-45C4-BEC3-15AD69EFA63D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Booksotre", "booksotre\Booksotre.csproj", "{1E178C22-F684-45C4-BEC3-15AD69EFA63D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "validation", "validation\validation.csproj", "{17D8B012-097E-4BD1-B270-FC80A5EFB06C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validation", "validation\Validation.csproj", "{17D8B012-097E-4BD1-B270-FC80A5EFB06C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{B35A0319-41E7-4D49-A0E1-440969D06E0E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{57990729-99EE-4527-99D1-12542A7D1351}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,14 +77,14 @@ Global
 		{17D8B012-097E-4BD1-B270-FC80A5EFB06C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{17D8B012-097E-4BD1-B270-FC80A5EFB06C}.Release|x64.ActiveCfg = Release|Any CPU
 		{17D8B012-097E-4BD1-B270-FC80A5EFB06C}.Release|x64.Build.0 = Release|Any CPU
-		{B35A0319-41E7-4D49-A0E1-440969D06E0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B35A0319-41E7-4D49-A0E1-440969D06E0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B35A0319-41E7-4D49-A0E1-440969D06E0E}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{B35A0319-41E7-4D49-A0E1-440969D06E0E}.Debug|x64.Build.0 = Debug|Any CPU
-		{B35A0319-41E7-4D49-A0E1-440969D06E0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B35A0319-41E7-4D49-A0E1-440969D06E0E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B35A0319-41E7-4D49-A0E1-440969D06E0E}.Release|x64.ActiveCfg = Release|Any CPU
-		{B35A0319-41E7-4D49-A0E1-440969D06E0E}.Release|x64.Build.0 = Release|Any CPU
+		{57990729-99EE-4527-99D1-12542A7D1351}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57990729-99EE-4527-99D1-12542A7D1351}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57990729-99EE-4527-99D1-12542A7D1351}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{57990729-99EE-4527-99D1-12542A7D1351}.Debug|x64.Build.0 = Debug|Any CPU
+		{57990729-99EE-4527-99D1-12542A7D1351}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57990729-99EE-4527-99D1-12542A7D1351}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57990729-99EE-4527-99D1-12542A7D1351}.Release|x64.ActiveCfg = Release|Any CPU
+		{57990729-99EE-4527-99D1-12542A7D1351}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

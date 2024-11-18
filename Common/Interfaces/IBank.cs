@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.ServiceFabric.Services.Remoting;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Common.Interfaces
 {
     [ServiceContract]
-    public interface IBank: ITransaction
+    public interface IBank: IService
     {
         [OperationContract]
         void ListClients();

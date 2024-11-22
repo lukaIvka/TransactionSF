@@ -31,7 +31,7 @@ namespace validation
             Console.WriteLine("Transaction rolled back.");
         }
 
-        public async Task<string> Validate(string book, uint quantity)
+        public string Validate(string book, uint quantity)
         {
             string retval = "success";
             try
@@ -39,15 +39,15 @@ namespace validation
                 if (string.IsNullOrEmpty(book) || quantity <= 0)
                 {
                     retval = "Some of the fields aren't filled correctly.";
-                    return await Task.FromResult(retval);
+                    return retval;
                 }
 
-                return await Task.FromResult(retval);
+                return retval;
             }
             catch (Exception e)
             {
                 retval = e.Message;
-                return await Task.FromResult(retval);
+                return retval;
             }
         }
 

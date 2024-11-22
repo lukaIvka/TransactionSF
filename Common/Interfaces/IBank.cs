@@ -5,11 +5,11 @@ using System.ServiceModel;
 namespace Common.Interfaces
 {
     [ServiceContract]
-    public interface IBank: IService
+    public interface IBank: IService, ITransaction
     {
         [OperationContract]
-        void ListClients();
+        Task ListClients();
         [OperationContract]
-        void EnlistMoneyTransfer(string userID, double amount);
+        Task EnlistMoneyTransfer(string userID, double amount);
     }
 }

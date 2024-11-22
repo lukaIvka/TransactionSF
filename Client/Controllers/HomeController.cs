@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using Microsoft.ServiceFabric.Services.Remoting.Client;
 using Common.Interfaces;
 using Newtonsoft.Json;
 using Client.Models;
@@ -9,15 +10,11 @@ namespace Client.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IBookstore _bookstoreService;
-        private readonly IValidate _validationService;
 
-        public HomeController(IBookstore bookstoreService, IValidate validationService)
+        public HomeController()
         {
-            _bookstoreService = bookstoreService;
-            _validationService = validationService;
         }
-
+        
         [HttpGet]
         public IActionResult Index()
         {
@@ -40,7 +37,9 @@ namespace Client.Controllers
                 TempData["ValidationError"] = "Quantity must be at least 1.";
                 return RedirectToAction("Index");
             }
-            retval = await _validationService.Validate(book, quantity);
+            IValidate _validationService = ServiceProxy.Create<IValidate>(
+                      new Uri("fabric:/transaction/Validation"));
+            retval =  _validationService.Validate(book, quantity);
 
             if (!string.IsNullOrWhiteSpace(retval))
             {

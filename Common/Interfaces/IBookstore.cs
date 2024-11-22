@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 namespace Common.Interfaces
 {
     [ServiceContract]
-    public interface IBookstore: IService
+    public interface IBookstore: IService, ITransaction
     {
         [OperationContract]
-        void ListAvailableItems();
+        Task ListAvailableItems();
         [OperationContract]
-        void EnlistPurchase(string bookId, uint count);
+        Task EnlistPurchase(string bookId, uint count);
         [OperationContract]
-        double GetItemPrice(string bookId);
+        Task<double> GetItemPrice(string bookId);
     }
 }

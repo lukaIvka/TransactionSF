@@ -24,12 +24,9 @@ namespace bank
             { "User2", 2500.50 },
             { "User3", 300.75 }
         };
-        public void Commit()
-        {
-            Console.WriteLine("Transaction committed in BankService.");
-        }
+        
 
-        public void EnlistMoneyTransfer(string userID, double amount)
+        public Task EnlistMoneyTransfer(string userID, double amount)
         {
             if (!_clientBalances.ContainsKey(userID))
             {
@@ -45,7 +42,7 @@ namespace bank
             Console.WriteLine($"Successfully transferred {amount:C} from client '{userID}'. New balance: {_clientBalances[userID]:C}");
         }
 
-        public void ListClients()
+        public Task ListClients()
         {
             Console.WriteLine("Available clients:");
             foreach (var client in _clientBalances)
@@ -54,18 +51,7 @@ namespace bank
             }
         }
 
-        public bool Prepare()
-        {
-            Console.WriteLine("Preparing transaction in BankService...");
-            return true; // Simulacija pripreme transakcije
-        }
-
-        public void Rollback()
-        {
-            Console.WriteLine("Transaction rolled back in BankService.");
-
-        }
-
+        
         /// <summary>
         /// Optional override to create listeners (e.g., TCP, HTTP) for this service replica to handle client or user requests.
         /// </summary>
@@ -94,6 +80,21 @@ namespace bank
 
                 await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
             }
+        }
+
+        public Task<bool> Prepare()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Commit()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Rollback()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,4 +1,5 @@
-using System.Fabric;
+﻿using System.Fabric;
+using Common.Interfaces;
 using Microsoft.ServiceFabric.Data.Collections;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
@@ -14,23 +15,26 @@ namespace TransactionCoordinator
             : base(context)
         { }
 
-        public void Commit()
+        async Task ITransaction.Commit()
         {
+            await Task.Delay(100);
             Console.WriteLine("Transaction committed.");
         }
 
-        public bool Prepare()
+        async Task<bool> ITransaction.Prepare()
         {
+            await Task.Delay(100);
             Console.WriteLine("Preparing transaction.");
+
+            // Vraća true ako je priprema uspešna
             return true;
         }
 
-        public void Rollback()
+        async Task ITransaction.Rollback()
         {
-            Console.WriteLine("Transaction rolled back.");
+            await Task.Delay(100);
+            string ret = "Transaction rolled back.";
         }
-
-
 
         /// <summary>
         /// Optional override to create listeners (e.g., HTTP, Service Remoting, WCF, etc.) for this service replica to handle client or user requests.
@@ -77,5 +81,7 @@ namespace TransactionCoordinator
                 await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
             }
         }
+
+        
     }
 }

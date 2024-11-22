@@ -21,7 +21,7 @@ namespace booksotre
         { "Kad su cvetale tikve", (8.99, 20) }
     };
 
-        public void ListAvailableItems()
+        public Task ListAvailableItems()
         {
             Console.WriteLine("Available books in the bookstore:");
             foreach (var item in _inventory)
@@ -30,7 +30,7 @@ namespace booksotre
             }
         }
 
-        public void EnlistPurchase(string bookID, uint count)
+        public Task EnlistPurchase(string bookID, uint count)
         {
             if (!_inventory.ContainsKey(bookID))
             {
@@ -47,7 +47,7 @@ namespace booksotre
             Console.WriteLine($"Successfully purchased {count} copies of '{bookID}'. Remaining stock: {updatedStock}");
         }
 
-        public double GetItemPrice(string bookID)
+        public Task<double> GetItemPrice(string bookID)
         {
             if (!_inventory.ContainsKey(bookID))
             {
@@ -57,18 +57,18 @@ namespace booksotre
             return _inventory[bookID].Price;
         }
 
-        public bool Prepare()
+        public Task<bool> Prepare()
         {
             Console.WriteLine("Preparing transaction in BookstoreService...");
             return true; // Simulacija pripreme transakcije
         }
 
-        public void Commit()
+        public Task Commit()
         {
             Console.WriteLine("Transaction committed in BookstoreService.");
         }
 
-        public void Rollback()
+        public Task Rollback()
         {
             Console.WriteLine("Transaction rolled back in BookstoreService.");
         }

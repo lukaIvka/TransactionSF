@@ -22,7 +22,7 @@ namespace Client.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ValidateInputAsync(string book, uint quantity)
+        public async Task<IActionResult> ValidateInput(string book, uint quantity)
         {
             string retval = "";
 
@@ -37,11 +37,18 @@ namespace Client.Controllers
                 TempData["ValidationError"] = "Quantity must be at least 1.";
                 return RedirectToAction("Index");
             }
-            IValidate _validationService = ServiceProxy.Create<IValidate>(
-                      new Uri("fabric:/transaction/Validation"));
-            retval =  _validationService.Validate(book, quantity);
 
-            if (!string.IsNullOrWhiteSpace(retval))
+            /*ITransaction _transaction = ServiceProxy.Create<ITransaction>(
+                new Uri("fabric:/transaction/TransactionCoordination"));
+            bool povrat = await _transaction.Prepare();
+            */
+
+
+            IValidate _validationService = ServiceProxy.Create<IValidate>(
+                      new Uri("fabric:/transaction/validation"));
+            retval = await _validationService.Validate(book, quantity);
+
+            if (string.IsNullOrEmpty(retval))
             {
                 TempData["ValidationError"] = "Bad input";
                 return RedirectToAction("Index");
@@ -57,22 +64,28 @@ namespace Client.Controllers
                 return RedirectToAction("Index", "Payment");
             }
             return View();
+            
 
-            /*
-            // Priprema za kupovinu
-            try
-            {
-                double pricePerItem = _bookstoreService.GetItemPrice(book);
-                double totalCost = pricePerItem * quantity;
+            
+                
+            
 
-                TempData["ValidationError"] = $"Purchase validated! Total cost: {totalCost:C}.";
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                TempData["ValidationError"] = $"An error occurred: {ex.Message}";
-                return RedirectToAction("Index");
-            }*/
         }
+        /*
+        // Priprema za kupovinu
+        try
+        {
+            double pricePerItem = _bookstoreService.GetItemPrice(book);
+            double totalCost = pricePerItem * quantity;
+
+            TempData["ValidationError"] = $"Purchase validated! Total cost: {totalCost:C}.";
+            return RedirectToAction("Index");
+        }
+        catch (Exception ex)
+        {
+            TempData["ValidationError"] = $"An error occurred: {ex.Message}";
+            return RedirectToAction("Index");
+        }*/
+
     }
 }

@@ -9,9 +9,10 @@ namespace Client.Controllers
 {
     public class PaymentController : Controller
     {
+        [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            return View("Payment");
         }
         [HttpPost]
         public async Task<IActionResult>  ProcessPayment()
@@ -22,7 +23,7 @@ namespace Client.Controllers
             IBank bankService = ServiceProxy.Create<IBank>(new Uri("fabric:/transaction/Bank"));
             var objAsJson = HttpContext.Session.GetString("Order");
             Book order = JsonConvert.DeserializeObject<Book>(objAsJson);
-            order.Price = bookStoreService.GetItemPrice(order.Title);
+            order.Price = await bookStoreService.GetItemPrice(order.Title);
 
             if (objAsJson == null)
             {

@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Booksotre", "booksotre\Booksotre.csproj", "{1E178C22-F684-45C4-BEC3-15AD69EFA63D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validation", "validation\Validation.csproj", "{17D8B012-097E-4BD1-B270-FC80A5EFB06C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "validation", "validation\validation.csproj", "{17D8B012-097E-4BD1-B270-FC80A5EFB06C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{57990729-99EE-4527-99D1-12542A7D1351}"
 EndProject

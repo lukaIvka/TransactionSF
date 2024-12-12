@@ -2,6 +2,7 @@ using System.Fabric;
 using Common.Interfaces;
 
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
+using Microsoft.ServiceFabric.Services.Remoting.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 
 namespace validation
@@ -15,23 +16,7 @@ namespace validation
             : base(context)
         { }
 
-        public void Commit()
-        {
-            Console.WriteLine("Transaction committed.");
-        }
-
-        public bool Prepare()
-        {
-            Console.WriteLine("Preparing transaction.");
-            return true;
-        }
-
-        public void Rollback()
-        {
-            Console.WriteLine("Transaction rolled back.");
-        }
-
-        public string Validate(string book, uint quantity)
+        public async Task<string> Validate(string book, uint quantity)
         {
             string retval = "success";
             try
@@ -39,15 +24,15 @@ namespace validation
                 if (string.IsNullOrEmpty(book) || quantity <= 0)
                 {
                     retval = "Some of the fields aren't filled correctly.";
-                    return retval;
+                    return await Task.FromResult(retval);
                 }
 
-                return retval;
+                return await Task.FromResult(retval);
             }
             catch (Exception e)
             {
                 retval = e.Message;
-                return retval;
+                return await Task.FromResult(retval);
             }
         }
 
@@ -57,7 +42,7 @@ namespace validation
         /// <returns>A collection of listeners.</returns>
         protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
         {
-            return new ServiceInstanceListener[0];
+            return this.CreateServiceRemotingInstanceListeners();
         }
 
         /// <summary>

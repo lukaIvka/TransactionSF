@@ -9,28 +9,28 @@ namespace TransactionCoordinator
     /// <summary>
     /// An instance of this class is created for each service replica by the Service Fabric runtime.
     /// </summary>
-    internal sealed class TransactionCoordinator : StatefulService, Common.Interfaces.ITransaction
+    internal sealed class TransactionCoordinator : StatefulService, ITransaction
     {
         public TransactionCoordinator(StatefulServiceContext context)
             : base(context)
         { }
 
-        async Task ITransaction.Commit()
+        public async Task Commit()
         {
             await Task.Delay(100);
             Console.WriteLine("Transaction committed.");
         }
 
-        async Task<bool> ITransaction.Prepare()
+        public Task<bool> Prepare()
         {
-            await Task.Delay(100);
+            Task.Delay(100);
             Console.WriteLine("Preparing transaction.");
 
             // Vraća true ako je priprema uspešna
-            return true;
+            return Task.FromResult(true);
         }
 
-        async Task ITransaction.Rollback()
+        public async Task Rollback()
         {
             await Task.Delay(100);
             string ret = "Transaction rolled back.";

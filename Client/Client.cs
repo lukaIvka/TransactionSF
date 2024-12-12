@@ -1,16 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Fabric;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
+﻿using System.Fabric;
 using Microsoft.ServiceFabric.Services.Communication.AspNetCore;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
-using Microsoft.ServiceFabric.Data;
 
 namespace Client
 {
@@ -45,6 +36,12 @@ namespace Client
                                     .UseServiceFabricIntegration(listener, ServiceFabricIntegrationOptions.None)
                                     .UseUrls(url);
                         builder.Services.AddControllersWithViews();
+                        builder.Services.AddSession(options =>
+                        {
+                            options.IdleTimeout = TimeSpan.FromMinutes(30); // Definiši koliko dugo sesija traje
+                            options.Cookie.HttpOnly = true;
+                            options.Cookie.IsEssential = true;
+                        });
                         var app = builder.Build();
                         if (!app.Environment.IsDevelopment())
                         {
@@ -52,12 +49,67 @@ namespace Client
                         }
                         app.UseStaticFiles();
                         app.UseRouting();
+                        app.UseSession();
+                        app.UseAuthorization();
+                        app.MapControllerRoute(
+                        name: "default",
+                        pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                        return app;
+                        /*
+                        // Dodaj CORS uslugu
+                        builder.Services.AddCors(options =>
+                        {
+                            options.AddPolicy("AllowReactApp", policy =>
+                            {
+                                policy.WithOrigins("http://localhost:3000") // URL tvoje React aplikacije
+                                      .AllowAnyMethod()
+                                      .AllowAnyHeader();
+                            });
+                        });
+                        
+                        builder.WebHost
+                                    .UseKestrel()
+                                    .UseContentRoot(Directory.GetCurrentDirectory())
+                                    .UseServiceFabricIntegration(listener, ServiceFabricIntegrationOptions.None)
+                                    .UseUrls(url);
+                        // Dodaj Swagger
+                        builder.Services.AddEndpointsApiExplorer();
+                        builder.Services.AddSwaggerGen();
+
+                        builder.Services.AddControllersWithViews();
+                        builder.Services.AddSession(options =>
+                        {
+                            options.IdleTimeout = TimeSpan.FromMinutes(30); // Definiši koliko dugo sesija traje
+                            options.Cookie.HttpOnly = true;
+                            options.Cookie.IsEssential = true;
+                        });
+                        var app = builder.Build();
+                        if (!app.Environment.IsDevelopment())
+                        {
+                        app.UseExceptionHandler("/Home/Error");
+                        }
+
+                        app.UseStaticFiles();
+
+                        // Dodaj Swagger i Swagger UI
+                        app.UseSwagger();
+                        app.UseSwaggerUI(c =>
+                        {
+                            c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Documentation V1");
+                            c.RoutePrefix = "swagger";
+                        });
+
+                        // Omogući CORS pre rutiranja
+                        app.UseCors("AllowReactApp");
+                        app.UseRouting();
+                        app.UseSession();
                         app.UseAuthorization();
                         app.MapControllerRoute(
                         name: "default",
                         pattern: "{controller=Home}/{action=Index}/{id?}");
                         
-                        return app;
+                        return app;*/
 
                     }))
             };

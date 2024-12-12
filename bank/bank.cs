@@ -40,6 +40,7 @@ namespace bank
 
             _clientBalances[userID] -= amount;
             Console.WriteLine($"Successfully transferred {amount:C} from client '{userID}'. New balance: {_clientBalances[userID]:C}");
+            return Task.CompletedTask;
         }
 
         public Task ListClients()
@@ -49,6 +50,7 @@ namespace bank
             {
                 Console.WriteLine($"Client: {client.Key}, Balance: {client.Value:C}");
             }
+            return Task.CompletedTask;
         }
 
         

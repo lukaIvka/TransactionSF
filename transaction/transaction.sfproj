@@ -42,7 +42,7 @@
       <ServiceLaunchUrl>http://localhost:{ServicePort}/</ServiceLaunchUrl>
     </ProjectReference>
     <ProjectReference Include="..\TransactionCoordinator\TransactionCoordinator.csproj" />
-    <ProjectReference Include="..\validation\Validation.csproj" />
+    <ProjectReference Include="..\validation\validation.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
   <PropertyGroup>

@@ -28,6 +28,7 @@ namespace booksotre
             {
                 Console.WriteLine($"Book: {item.Key}, Price: {item.Value.Price:C}, Stock: {item.Value.Stock}");
             }
+            return Task.CompletedTask;
         }
 
         public Task EnlistPurchase(string bookID, uint count)
@@ -45,6 +46,7 @@ namespace booksotre
             var updatedStock = _inventory[bookID].Stock - count;
             _inventory[bookID] = (_inventory[bookID].Price, updatedStock);
             Console.WriteLine($"Successfully purchased {count} copies of '{bookID}'. Remaining stock: {updatedStock}");
+            return Task.CompletedTask;
         }
 
         public Task<double> GetItemPrice(string bookID)
@@ -54,23 +56,25 @@ namespace booksotre
                 throw new Exception($"Book '{bookID}' does not exist.");
             }
 
-            return _inventory[bookID].Price;
+            return Task.FromResult(_inventory[bookID].Price);
         }
 
         public Task<bool> Prepare()
         {
             Console.WriteLine("Preparing transaction in BookstoreService...");
-            return true; // Simulacija pripreme transakcije
+            return Task.FromResult(true); // Simulacija pripreme transakcije
         }
 
         public Task Commit()
         {
             Console.WriteLine("Transaction committed in BookstoreService.");
+            return Task.CompletedTask;
         }
 
         public Task Rollback()
         {
             Console.WriteLine("Transaction rolled back in BookstoreService.");
+            return Task.CompletedTask;
         }
 
         /// <summary>

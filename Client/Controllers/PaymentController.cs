@@ -12,6 +12,21 @@ namespace Client.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            var orderJson = HttpContext.Session.GetString("Order");
+
+            if (!string.IsNullOrEmpty(orderJson))
+            {
+                var order = JsonConvert.DeserializeObject<Book>(orderJson);
+
+                ViewBag.Title = order.Title;
+                ViewBag.Amount = order.Amount;
+                ViewBag.Price = order.Price;
+            }
+            else
+            {
+                ViewBag.Title = "No title found";
+                ViewBag.Quantity = 0;
+            }
             return View("Payment");
         }
         [HttpPost]

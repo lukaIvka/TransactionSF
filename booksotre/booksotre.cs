@@ -13,7 +13,7 @@ namespace booksotre
         public Booksotre(StatelessServiceContext context)
             : base(context)
         { }
-
+        // ovdje su potrebne izmjene za metodama kojima je potreban dictionary
         private readonly Dictionary<string, (double Price, uint Stock)> _inventory = new Dictionary<string, (double, uint)>
     {
         { "20000 milja pod morem", (10.99, 50) },

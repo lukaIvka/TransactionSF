@@ -1,10 +1,12 @@
 ﻿namespace Client.Models
 {
-    public class BookstoreModel: TransactionModel
+    public static class BookstoreModel
     {
-        public List<string> Books { get; set; } // Lista dostupnih knjiga
-        public string SelectedBook { get; set; } // Odabrana knjiga
-        public uint Quantity { get; set; } // Količina za kupovinu
-        public double TotalPrice { get; set; } // Ukupna cena
+        public static Dictionary<string, decimal> BookPrices = new Dictionary<string, decimal>
+        {
+            { "20000 milja pod morem",  19.99m},
+            { "Na Drini Cuprija", 25.50m },
+            { "Kad su cvetale tikve", 12.75m }
+        };
     }
 }

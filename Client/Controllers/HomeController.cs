@@ -38,14 +38,8 @@ namespace Client.Controllers
                 return RedirectToAction("Index");
             }
 
-            /*ITransaction _transaction = ServiceProxy.Create<ITransaction>(
-                new Uri("fabric:/transaction/TransactionCoordination"));
-            bool povrat = await _transaction.Prepare();
-            */
-
-
             IValidate _validationService = ServiceProxy.Create<IValidate>(
-                      new Uri("fabric:/transaction/validation"));
+            new Uri("fabric:/transaction/validation"));
             retval = await _validationService.Validate(book, quantity);
 
             if (string.IsNullOrEmpty(retval))
@@ -57,7 +51,8 @@ namespace Client.Controllers
             if (retval.Equals("success"))
             {
                 TempData["ValidationError"] = "";
-                Book order = new Book() { Title = book, Amount = (int)quantity };
+                Book order = new Book() { Title = book, Amount = (int)quantity};
+                order.Price = (double)BookstoreModel.BookPrices.GetValueOrDefault(book);
                 var obj = JsonConvert.SerializeObject(order);
                 HttpContext.Session.SetString("Order", obj);
                 HttpContext.Session.Remove("PaymentError");
